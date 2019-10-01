@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
+	<title>HTML Interview Questions</title>
+	<meta name="author" content="name">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="">
+			<h1>HTML Interview Questions</h1>
+			<hr>
+			<h2>What does a&nbsp;<code>doctype</code>&nbsp;do?</h2>
+			<p>DOCTYPE Declaration (DTD or Document Type Declaration) must be the first thing in the HTML documents. It is an instruction to the web browser about what version of HTML the page is written in. With the information, the browser determines how to render the page according to the page's source code. When omitted, browsers tend to use a different rendering mode that is incompatible with some specifications.</p>
+			
+			<h2><a id="user-content-how-do-you-serve-a-page-with-content-in-multiple-languages" class="anchor" href="#how-do-you-serve-a-page-with-content-in-multiple-languages"></a>How do you serve a page with content in multiple languages?</h2>
+			<p>First we need to recognize what language is preferred by current user. Two options:</p>
+			<ol>
+				<li>let user specify the preferred language explicitly, or </li>
+				<li>make your best guess based on existing data about the user</li>
+			</ol>
+			<p>Use&nbsp;<code>lang</code>&nbsp;(or&nbsp;<code>xml:lang</code>&nbsp;for XHTML) in tags. Also metadata and&nbsp;<code>Content-Language</code>&nbsp;HTTP header can be used.</p>
+
+		
+			<h2><a id="user-content-what-kind-of-things-must-you-be-wary-of-when-design-or-developing-for-multilingual-sites" class="anchor" href="#what-kind-of-things-must-you-be-wary-of-when-design-or-developing-for-multilingual-sites"></a>What kind of things must you be wary of when design or developing for multilingual sites?</h2>
+			<ul>
+				<li><code>hreflang</code>&nbsp;attr in link</li>
+				<li><code>dir</code>&nbsp;attr indicating language direction, such as&nbsp;<code>rtl</code></li>
+				<li><code>&lt;meta charset='UTF-8'&gt;</code></li>
+				<li><code>font-size</code>&nbsp;for&nbsp;<code>:lang({language_code})</code>&nbsp;selectors in CSS</li>
+				<li>difference in word langth for each language</li>
+			</ul>
+
+
+			<h2><a id="user-content-whats-the-difference-between-standards-mode-and-quirks-mode" class="anchor" href="#whats-the-difference-between-standards-mode-and-quirks-mode"></a>What's the difference between standards mode and quirks mode?</h2>
+			<p>They are modes used by browser rendering engines. In the standards mode, the engine will render a page as HTML and CSS specifications specify. The quirks mode is to render legacy pages written before these standards are fixed. The legacy pages contain non-standard behaviours emulated in old browsers such as Internet Explorer 5 or Navigator 4.</p>
+			<p>We can enforce browsers to use standards mode with a&nbsp;<code>&lt;!DOCTYPE html&gt;</code>&nbsp;tag.</p>
+
+
+
+			<h2><a id="user-content-whats-the-difference-between-html-and-xhtml" class="anchor" href="#whats-the-difference-between-html-and-xhtml"></a>What's the difference between HTML and XHTML?</h2>
+			<p><em>Not answered yet</em></p>
+
+			<h2><a id="user-content-are-there-any-problems-with-serving-pages-as-applicationxhtmlxml" class="anchor" href="#are-there-any-problems-with-serving-pages-as-applicationxhtmlxml"></a>Are there any problems with serving pages as&nbsp;<code>application/xhtml+xml</code>?</h2>
+			<p>IE &lt; 8 will show a download dialog for the pages, instead of rendering them properly.</p>
+
+
+			
+
+			<h2><a id="user-content-what-are-data--attributes-good-for" class="anchor" href="#what-are-data--attributes-good-for"></a>What are&nbsp;<code>data-</code>&nbsp;attributes good for?</h2>
+			<p>It makes HTML elements contain extra information without using non-standard attributes, or other hacks like that.</p>
+
+			<h2><a id="user-content-consider-html5-as-an-open-web-platform-what-are-the-building-blocks-of-html5" class="anchor" href="#consider-html5-as-an-open-web-platform-what-are-the-building-blocks-of-html5"></a>Consider HTML5 as an open web platform. What are the building blocks of HTML5?</h2>
+			<p><em>Not answered yet</em></p>
+
+			<h2><a id="user-content-describe-the-difference-between-a-cookie-sessionstorage-and-localstorage" class="anchor" href="#describe-the-difference-between-a-cookie-sessionstorage-and-localstorage"></a>Describe the difference between a&nbsp;<code>cookie</code>,&nbsp;<code>sessionStorage</code>&nbsp;and&nbsp;<code>localStorage</code>.</h2>
+			<p><em>Not answered yet</em></p>
+
+			<h2><a id="user-content-describe-the-difference-between-script-script-async-and-script-defer" class="anchor" href="#describe-the-difference-between-script-script-async-and-script-defer"></a>Describe the difference between&nbsp;<code>&lt;script&gt;</code>,&nbsp;<code>&lt;script async&gt;</code>&nbsp;and&nbsp;<code>&lt;script defer&gt;</code>.</h2>
+			<ul>
+				<li><code>&lt;script&gt;</code>&nbsp;stops rendering process, and download and run a script.</li>
+				<li><code>&lt;script async&gt;</code>&nbsp;don't stop rendering process while asynchronously downloading a script. When finishing download, it stops rendering and runs the script.</li>
+				<li><code>&lt;script defer&gt;</code>&nbsp;don't stop rendering process while asynchronously downloading a script. When finishing rendering, it runs the script.</li>
+			</ul>
+
+			<h2><a id="user-content-why-is-it-generally-a-good-idea-to-position-css-links-between-headhead-and-js-scripts-just-before-body-do-you-know-any-exceptions" class="anchor" href="#why-is-it-generally-a-good-idea-to-position-css-links-between-headhead-and-js-scripts-just-before-body-do-you-know-any-exceptions"></a>Why is it generally a good idea to position CSS&nbsp;<code>&lt;link&gt;</code>s between&nbsp;<code>&lt;head&gt;&lt;/head&gt;</code>&nbsp;and JS&nbsp;<code>&lt;script&gt;</code>s just before&nbsp;<code>&lt;/body&gt;</code>? Do you know any exceptions?</h2>
+			<p><em>Not answered yet</em></p>
+
+			<h2><a id="user-content-what-is-progressive-rendering" class="anchor" href="#what-is-progressive-rendering"></a>What is progressive rendering?</h2>
+			<p>When a HTTP response is flushed multiple times, a browser doesn't wait until the whole content is loaded and renders each part earlier.</p>
+
+			<h2><a id="user-content-have-you-used-different-html-templating-languages-before" class="anchor" href="#have-you-used-different-html-templating-languages-before"></a>Have you used different HTML templating languages before?</h2>
+			<p>Yes. Jinja2 and Django template language in Python. Jade and EJS in JavaScript. Some more in other languages.</p>
+		</div>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
