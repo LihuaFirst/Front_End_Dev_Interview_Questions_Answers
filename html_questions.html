@@ -20,16 +20,18 @@
 			<h1>HTML Interview Questions</h1>
 			<hr>
 			<h2>What does a&nbsp;<code>doctype</code>&nbsp;do?</h2>
-			<p>DOCTYPE Declaration (DTD or Document Type Declaration) must be the first thing in the HTML documents. It is an instruction to the web browser about what version of HTML the page is written in. With the information, the browser determines how to render the page according to the page's source code. When omitted, browsers tend to use a different rendering mode that is incompatible with some specifications.</p>
+			<p>DOCTYPE is a type declaration that should go as the first line in your html document before the opening html tag. It makes browser render the page in standards mode. And you should only use the <code>&lt;!doctype html&gt;</code> since the html5 was released.</p>
 			
 			<h2><a id="user-content-how-do-you-serve-a-page-with-content-in-multiple-languages" class="anchor" href="#how-do-you-serve-a-page-with-content-in-multiple-languages"></a>How do you serve a page with content in multiple languages?</h2>
-			<p>First we need to recognize what language is preferred by current user. Two options:</p>
-			<ol>
-				<li>let user specify the preferred language explicitly, or </li>
-				<li>make your best guess based on existing data about the user</li>
-			</ol>
-			<p>Use&nbsp;<code>lang</code>&nbsp;(or&nbsp;<code>xml:lang</code>&nbsp;for XHTML) in tags. Also metadata and&nbsp;<code>Content-Language</code>&nbsp;HTTP header can be used.</p>
-
+						
+			<p>Please clarify this question, the simpliest case is that the primary language of your page is in English but chunks of text is French. If so, you can use HTML <code>lang</code> attribute to specify the primary language <code>&lt;html lang="en"&gt;...&lt;/html&gt;</code>, then specify the lang attribute on those element, <code>&lt;p lang="fr-CA"&gt;</code>.</p>
+			
+			<p>If this question is asking about how to serve a page with content available in multiple languages, but the content within the page should be displayed only in one consistent language.</p>
+			<p>In this case, when an HTTP request is made to a server, the requesting user agent usually sends information about the user's language preferences, such as in the <code>Accept-Language</code> header.</p>
+			<p>The server can then use this information to return a version of the document in the appropriate language if such an alternative is available. The returned HTML document should also declare the lang attribute in the &lt;html&gt; tag, such as <code>&lt;html lang="en"&gt;...&lt;/html&gt;</code>.</p>
+			<p>In the back end, the HTML markup will contain i18n placeholders and content for the specific language stored in YML or JSON formats. The server then dynamically generates the HTML page with content in that particular language, usually with the help of a back end framework.</p>
+			<p>And lastly serving same page in multiple languages can lead to a lot of duplicated content, which can harm ranking your page in search engines.</p>
+			<p>To avoid that you should specify the canonical url - with default or main language of your content and specify localized versions of this page as alternatives with language specified in&nbsp;<code class="language-text">hreflang</code>&nbsp;field. Using&nbsp;<code class="language-text">&lt;link rel="alternate" hreflang='en-gb'&gt;</code></p>
 		
 			<h2><a id="user-content-what-kind-of-things-must-you-be-wary-of-when-design-or-developing-for-multilingual-sites" class="anchor" href="#what-kind-of-things-must-you-be-wary-of-when-design-or-developing-for-multilingual-sites"></a>What kind of things must you be wary of when design or developing for multilingual sites?</h2>
 			<ul>
