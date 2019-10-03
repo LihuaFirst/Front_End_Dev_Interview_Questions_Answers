@@ -6,10 +6,17 @@ body {
 }
 
 h2 {
-	font-size: 1em;
-	font-weight: bold;
+	/*font-size: 1.5em;
+	font-weight: bold;*/
 }
 code {
 	background-color: rgba(27, 31, 35, .05);
 	border-radius: 3px;
+}
+ol.low-alpha {
+	list-style-type:lower-alpha;
+}
+ol li:last-child,
+ul li:last-child {
+	margin-bottom: 10px;
 }
