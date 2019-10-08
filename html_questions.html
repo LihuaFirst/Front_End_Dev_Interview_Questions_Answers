@@ -20,46 +20,9 @@
 			<h1>HTML Interview Questions</h1>
 			<hr>
 			<h2>What does a&nbsp;<code>doctype</code>&nbsp;do?</h2>
-			<p>DOCTYPE is a type declaration that should go as the first line in your html document before the opening html tag. It makes browser render the page in standards mode. And you should only use the <code>&lt;!doctype html&gt;</code> since the html5 was released.</p>
-
-			<h2><a id="user-content-what-kind-of-things-must-you-be-wary-of-when-design-or-developing-for-multilingual-sites" class="anchor" href="#what-kind-of-things-must-you-be-wary-of-when-design-or-developing-for-multilingual-sites"></a>What kind of things must you be wary of when design or developing for multilingual sites?</h2>
-			<ol>
-				<li>Using Unicode encoding: <code>&lt;meta charset='UTF-8'&gt;</code></li>
-				<li>Setting the primary language: <code>&lt;html lang="fr"&gt;</code></li>
-				<li>Using the &lsquo;lang&rsquo; attribute on elements written in different language: <code>&lt;a href="" lang="fr" hreflang="fr"&gt;Francais&lt;/a&gt;</code></li>
-				<li>Language direction: <code>&lt;html dir="rtl"&gt;</code> and reverse layout using css</li>
-				<li>Default font size for different languages: <code>:lang(zh){ font-size: 125%; }</code>&nbsp;selectors in CSS</li>
-				<li>Language word length (may affect layout)</li>
-				<li>Google recommends using different URLs for different language versions</li>
-
-				<li>Design for Localization and Internationalization
-					<ul>
-						<li>Numeric, date and time formats</li>
-						<li>Use of currency</li>
-						<li>Local calendars</li>
-						<li>Sorting and presentation of lists</li>
-						<li>Personal names and forms of address</li>
-						<li>Symbols, icons and colors</li>
-						<li>Text and graphics containing references to objects, actions or ideas which, in a given culture, may be subject to misinterpretation or viewed as insensitive.</li>
-					</ul>
-				</li>
-
-				<li>Development considerations
-					<ol class="low-alpha">
-						<li>Don't Embed Text Directly to the Code - use separate resource files for all user-visible strings</li>
-						<li>Don't use Pixel-based Layouts / UI Requires Editing after Translation - design for +50% and give strings room to grow and shrink</li>
-						<li>Always Use a Full Locale - language and the country code</li>
-						<li>Don’t use Concatenated Strings</li>
-						<li>Always Use UTF-8 (HTML, HTTP server, database, application)</li>
-						<li>Use a Library to Support Different Locales (Numbers, Units, Dates and Times)</li>
-						<li>Prepare for a Complex Text Flow (Vertical Writing and Right to Left)</li>
-						<li>Provide Localization Notes And Use Code Comments to the translators</li>
-						<li>Separate Text from Graphics</li>
-					</ol>
-				</li>
-			</ol>
-
-
+			<p><strong>DOCTYPE</strong>&nbsp;is an abbreviation for&nbsp;<strong>DOCument TYPE</strong>. A DOCTYPE is always associated to a&nbsp;<strong>DTD</strong>&nbsp;- for&nbsp;<strong>Document Type Definition</strong>.</p>
+			<p>A DTD defines how documents of a certain type should be structured (i.e. a&nbsp;<code>button</code>&nbsp;can contain a&nbsp;<code>span</code>&nbsp;but not a&nbsp;<code>div</code>), whereas a DOCTYPE declares what DTD a document&nbsp;<em>supposedly</em>&nbsp;respects (i.e. this document respects the HTML DTD).</p>
+			<p>DOCTYPE should go as the first line in your html document before the opening html tag. Once a user agent has recognized a correct DOCTYPE, it will trigger the&nbsp;<strong>no-quirks mode</strong>&nbsp;matching this DOCTYPE for reading the document. If a user agent doesn't recognize a correct DOCTYPE, it will trigger the&nbsp;<strong>quirks mode</strong>. And you should only use the <code>&lt;!doctype html&gt;</code> since the html5 was released.</p>
 
 			<h2><a id="user-content-how-do-you-serve-a-page-with-content-in-multiple-languages" class="anchor" href="#how-do-you-serve-a-page-with-content-in-multiple-languages"></a>How do you serve a page with content in multiple languages?</h2>
 
@@ -92,51 +55,182 @@
 				</li>
 			</ol>
 
+			<h2><a id="user-content-what-kind-of-things-must-you-be-wary-of-when-design-or-developing-for-multilingual-sites" class="anchor" href="#what-kind-of-things-must-you-be-wary-of-when-design-or-developing-for-multilingual-sites"></a>What kind of things must you be wary of when design or developing for multilingual sites?</h2>
+			<ol>
+				<li>Using Unicode encoding: <code>&lt;meta charset='UTF-8'&gt;</code></li>
+				<li>Setting the primary language: <code>&lt;html lang="fr"&gt;</code></li>
+				<li>Using the &lsquo;lang&rsquo; attribute on elements written in different language: <code>&lt;a href="" lang="fr" hreflang="fr"&gt;Francais&lt;/a&gt;</code></li>
+				<li>Language direction: <code>&lt;html dir="rtl"&gt;</code> and reverse layout using css</li>
+				<li>Default font size for different languages: <code>:lang(zh){ font-size: 125%; }</code>&nbsp;selectors in CSS</li>
+				<li>Language word length (may affect layout)</li>
+				<li>Google recommends using different URLs for different language versions</li>
+				<li>Text in raster-based images (e.g. png, gif, jpg, etc.), is not a scalable approach - Placing text in an image is still a popular way to get good-looking, non-system fonts to display on any computer. However, to translate image text, each string of text will need to have a separate image created for each language. Anything more than a handful of replacements like this can quickly get out of control.</li>
 
+				<li>Design for Localization and Internationalization
+					<ul>
+						<li>Numeric, date and time formats</li>
+						<li>Use of currency</li>
+						<li>Local calendars</li>
+						<li>Sorting and presentation of lists</li>
+						<li>Personal names and forms of address</li>
+						<li>Symbols, icons and colors</li>
+						<li>Text and graphics containing references to objects, actions or ideas which, in a given culture, may be subject to misinterpretation or viewed as insensitive.</li>
+					</ul>
+				</li>
 
-			
-
-
-
-			<h2><a id="user-content-whats-the-difference-between-standards-mode-and-quirks-mode" class="anchor" href="#whats-the-difference-between-standards-mode-and-quirks-mode"></a>What's the difference between standards mode and quirks mode?</h2>
-			<p>They are modes used by browser rendering engines. In the standards mode, the engine will render a page as HTML and CSS specifications specify. The quirks mode is to render legacy pages written before these standards are fixed. The legacy pages contain non-standard behaviours emulated in old browsers such as Internet Explorer 5 or Navigator 4.</p>
-			<p>We can enforce browsers to use standards mode with a&nbsp;<code>&lt;!DOCTYPE html&gt;</code>&nbsp;tag.</p>
-
-
-
-			<h2><a id="user-content-whats-the-difference-between-html-and-xhtml" class="anchor" href="#whats-the-difference-between-html-and-xhtml"></a>What's the difference between HTML and XHTML?</h2>
-			<p><em>Not answered yet</em></p>
-
-			<h2><a id="user-content-are-there-any-problems-with-serving-pages-as-applicationxhtmlxml" class="anchor" href="#are-there-any-problems-with-serving-pages-as-applicationxhtmlxml"></a>Are there any problems with serving pages as&nbsp;<code>application/xhtml+xml</code>?</h2>
-			<p>IE &lt; 8 will show a download dialog for the pages, instead of rendering them properly.</p>
-
-
+				<li>Development considerations
+					<ol class="low-alpha">
+						<li>Don't Embed Text Directly to the Code - use separate resource files for all user-visible strings</li>
+						<li>Don't use Pixel-based Layouts / UI Requires Editing after Translation - design for +50% and give strings room to grow and shrink</li>
+						<li>Always Use a Full Locale - language and the country code</li>
+						<li>Don’t use Concatenated Strings</li>
+						<li>Always Use UTF-8 (HTML, HTTP server, database, application)</li>
+						<li>Use a Library to Support Different Locales (Numbers, Units, Dates and Times)</li>
+						<li>Prepare for a Complex Text Flow (Vertical Writing and Right to Left)</li>
+						<li>Provide Localization Notes And Use Code Comments to the translators</li>
+						<li>Separate Text from Graphics</li>
+					</ol>
+				</li>
+			</ol>
 
 
 			<h2><a id="user-content-what-are-data--attributes-good-for" class="anchor" href="#what-are-data--attributes-good-for"></a>What are&nbsp;<code>data-</code>&nbsp;attributes good for?</h2>
-			<p>It makes HTML elements contain extra information without using non-standard attributes, or other hacks like that.</p>
+			<p>Before JavaScript frameworks became popular, front end developers used&nbsp;<code>data-</code>&nbsp;attributes to store extra data within the DOM itself, without other hacks such as non-standard attributes, extra properties on the DOM. It is intended to store custom data private to the page or application, for which there are no more appropriate attributes or elements.</p>
+			<p>For instance, let’s say you have a list of different restaurants on a webpage, you wanted to store information about restaurants' type, their id or their distance from the visitor. You can style the elements base on the restaurants' type or retrieve/modify their data attributes.</p>
+			<ul>
+				<li>
+					<p><strong>CSS access</strong></p>
+					<p><code>li[data-type='veg'] { ... }</code></p>
+				</li>
+				<li>
+					<p><strong>Javascript access</strong></p>
+					<ul>
+						<li>Using <code>getAttribute()</code> and <code>setAttribute()</code></li>
+						<li>Using <code>dataset</code> property (returns a DOMStringMap object with one entry for each custom data attribute)</li>
+						<li>Using jQuery <code>data()</code> method</li>
+					</ul>
+
+				</li>
+
+				<li>
+					<p><strong>Caution</strong></p>
+					<p>Do not store content that should be visible and accessible in data attributes, because assistive technology may not access them. In addition, search crawlers may not index data attributes' values.</p>
+				</li>
+			</ul>
+			<p>However these days, using&nbsp;<code>data-</code>&nbsp;attributes is generally not encouraged. One reason is that users can modify the data attribute easily by using inspect element in the browser. The data model is better stored within JavaScript itself and stay updated with the DOM via data binding possibly through a library or a framework.</p>
 
 			<h2><a id="user-content-consider-html5-as-an-open-web-platform-what-are-the-building-blocks-of-html5" class="anchor" href="#consider-html5-as-an-open-web-platform-what-are-the-building-blocks-of-html5"></a>Consider HTML5 as an open web platform. What are the building blocks of HTML5?</h2>
-			<p><em>Not answered yet</em></p>
+			<ul>
+				<li>Semantics - Allowing you to describe more precisely what your content is.</li>
+				<li>Connectivity - Allowing you to communicate with the server in new and innovative ways.</li>
+				<li>Offline and storage - Allowing webpages to store data on the client-side locally and operate offline more efficiently.</li>
+				<li>Multimedia - Making video and audio first-class citizens in the Open Web.</li>
+				<li>2D/3D graphics and effects - Allowing a much more diverse range of presentation options.</li>
+				<li>Performance and integration - Providing greater speed optimization and better usage of computer hardware.</li>
+				<li>Device access - Allowing for the usage of various input and output devices.</li>
+				<li>Styling - Letting authors write more sophisticated themes.</li>
+			</ul>
+
+
 
 			<h2><a id="user-content-describe-the-difference-between-a-cookie-sessionstorage-and-localstorage" class="anchor" href="#describe-the-difference-between-a-cookie-sessionstorage-and-localstorage"></a>Describe the difference between a&nbsp;<code>cookie</code>,&nbsp;<code>sessionStorage</code>&nbsp;and&nbsp;<code>localStorage</code>.</h2>
-			<p><em>Not answered yet</em></p>
+			<p>All the above mentioned technologies are key-value storage mechanisms on the client side. They are only able to store values as strings.</p>
+
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th><code>cookie</code></th>
+						<th><code>localStorage</code></th>
+						<th><code>sessionStorage</code></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Initiator</td>
+						<td>Client or server. Server can use&nbsp;<code>Set-Cookie</code>&nbsp;header</td>
+						<td>Client</td>
+						<td>Client</td>
+					</tr>
+					<tr>
+						<td>Expiry</td>
+						<td>Manually set</td>
+						<td>Forever</td>
+						<td>On tab close</td>
+					</tr>
+					<tr>
+						<td>Persistent across browser sessions</td>
+						<td>Depends on whether expiration is set</td>
+						<td>Yes</td>
+						<td>No</td>
+					</tr>
+					<tr>
+						<td>Sent to server with every HTTP request</td>
+						<td>Cookies are automatically being sent via&nbsp;<code>Cookie</code>&nbsp;header</td>
+						<td>No</td>
+						<td>No</td>
+					</tr>
+					<tr>
+						<td>Capacity (per domain)</td>
+						<td>4kb</td>
+						<td>5MB</td>
+						<td>5MB</td>
+					</tr>
+					<tr>
+						<td>Accessibility</td>
+						<td>Any window</td>
+						<td>Any window</td>
+						<td>Same tab</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p><em>Note: If the user decides to clear browsing data via whatever mechanism provided by the browser, this will clear out any&nbsp;<code>cookie</code>,&nbsp;<code>localStorage</code>, or&nbsp;<code>sessionStorage</code>&nbsp;stored. It's important to keep this in mind when designing for local persistance, especially when comparing to alternatives such as server side storing in a database or similar (which of course will persist despite user actions).</em></p>
 
 			<h2><a id="user-content-describe-the-difference-between-script-script-async-and-script-defer" class="anchor" href="#describe-the-difference-between-script-script-async-and-script-defer"></a>Describe the difference between&nbsp;<code>&lt;script&gt;</code>,&nbsp;<code>&lt;script async&gt;</code>&nbsp;and&nbsp;<code>&lt;script defer&gt;</code>.</h2>
 			<ul>
-				<li><code>&lt;script&gt;</code>&nbsp;stops rendering process, and download and run a script.</li>
-				<li><code>&lt;script async&gt;</code>&nbsp;don't stop rendering process while asynchronously downloading a script. When finishing download, it stops rendering and runs the script.</li>
-				<li><code>&lt;script defer&gt;</code>&nbsp;don't stop rendering process while asynchronously downloading a script. When finishing rendering, it runs the script.</li>
+				<li><code>&lt;script&gt;</code>&nbsp;- HTML parsing is blocked, the script is fetched and executed immediately, HTML parsing resumes after the script is executed.</li>
+				<li><code>&lt;script async&gt;</code>&nbsp;- The script will be fetched in parallel to HTML parsing and executed as soon as it is available (potentially before HTML parsing completes). Use&nbsp;<code>async</code>&nbsp;when the script is independent of any other scripts on the page, for example, analytics.</li>
+				<li><code>&lt;script defer&gt;</code>&nbsp;- The script will be fetched in parallel to HTML parsing and executed when the page has finished parsing. If there are multiple of them, each deferred script is executed in the order they were encoun&shy;tered in the document. If a script relies on a fully-parsed DOM, the&nbsp;<code>defer</code>&nbsp;attribute will be useful in ensuring that the HTML is fully parsed before executing. There's not much difference in putting a normal&nbsp;<code>&lt;script&gt;</code>&nbsp;at the end of&nbsp;<code>&lt;body&gt;</code>. A deferred script must not contain&nbsp;<code>document.write</code>.</li>
 			</ul>
+			<p>Note: The&nbsp;<code>async</code>&nbsp;and&nbsp;<code>defer</code>&nbsp;attrib&shy;utes are ignored for scripts that have no&nbsp;<code>src</code>&nbsp;attribute.</p>
+
 
 			<h2><a id="user-content-why-is-it-generally-a-good-idea-to-position-css-links-between-headhead-and-js-scripts-just-before-body-do-you-know-any-exceptions" class="anchor" href="#why-is-it-generally-a-good-idea-to-position-css-links-between-headhead-and-js-scripts-just-before-body-do-you-know-any-exceptions"></a>Why is it generally a good idea to position CSS&nbsp;<code>&lt;link&gt;</code>s between&nbsp;<code>&lt;head&gt;&lt;/head&gt;</code>&nbsp;and JS&nbsp;<code>&lt;script&gt;</code>s just before&nbsp;<code>&lt;/body&gt;</code>? Do you know any exceptions?</h2>
-			<p><em>Not answered yet</em></p>
+			<p><strong>Placing&nbsp;<code>&lt;link&gt;</code>s in the&nbsp;<code>&lt;head&gt;</code></strong></p>
+			<p>Putting&nbsp;<code>&lt;link&gt;</code>s in the head is part of proper specification in building an optimized website. When a page first loads, HTML and CSS are being parsed simultaneously; HTML creates the DOM (Document Object Model) and CSS creates the CSSOM (CSS Object Model). Both are needed to create the visuals in a website, allowing for a quick "first meaningful paint" timing. This progressive rendering is a category optimization sites are measured in their performance scores. Putting stylesheets near the bottom of the document is what prohibits progressive rendering in many browsers. Some browsers block rendering to avoid having to repaint elements of the page if their styles change. The user is then stuck viewing a blank white page. Other times there can be flashes of unstyled content (FOUC), which can shows a webpage with no styling applied.</p>
+			<p><strong>Placing&nbsp;<code>&lt;script&gt;</code>s just before&nbsp;<code>&lt;/body&gt;</code></strong></p>
+			<p><code>&lt;script&gt;</code>s block HTML parsing while they are being downloaded and executed. Placing the scripts at the bottom will allow the HTML to be parsed and displayed to the user first.</p>
+			<p>An exception for positioning of&nbsp;<code>&lt;script&gt;</code>s at the bottom is when your script contains&nbsp;<code>document.write()</code>, but these days it's not a good practice to use&nbsp;<code>document.write()</code>. Also, placing&nbsp;<code>&lt;script&gt;</code>s at the bottom means that the browser cannot start downloading the scripts until the entire document is parsed. This ensures your code that needs to manipulate DOM elements will not throw and error and halt the entire script. If you need to put&nbsp;<code>&lt;script&gt;</code>&nbsp;in the&nbsp;<code>&lt;head&gt;</code>, use the&nbsp;<code>defer</code>&nbsp;attribute, which will achieve the same effect of downloading and running the script only after the HTML is parsed.</p>
 
 			<h2><a id="user-content-what-is-progressive-rendering" class="anchor" href="#what-is-progressive-rendering"></a>What is progressive rendering?</h2>
-			<p>When a HTTP response is flushed multiple times, a browser doesn't wait until the whole content is loaded and renders each part earlier.</p>
+			<p>Progressive rendering is the name given to techniques used to improve the performance of a webpage (in particular, improve perceived load time) to render content for display as quickly as possible.</p>
+			<p>It used to be much more prevalent in the days before broadband internet but it is still used in modern development as mobile data connections are becoming increasingly popular (and unreliable)!</p>
+			<p>Examples of such techniques:</p>
+			<ul>
+				<li>Lazy loading of images - Images on the page are not loaded all at once. JavaScript will be used to load an image when the user scrolls into the part of the page that displays the image.</li>
+				<li>Prioritizing visible content (or above-the-fold rendering) - Include only the minimum CSS/content/scripts necessary for the amount of page that would be rendered in the users browser first to display as quickly as possible, you can then use deferred scripts or listen for the&nbsp;<code>DOMContentLoaded</code>/<code>load</code>&nbsp;event to load in other resources and content.</li>
+				<li>Async HTML fragments - Flushing parts of the HTML to the browser as the page is constructed on the back end. More details on the technique can be found&nbsp;<a href="http://www.ebaytechblog.com/2014/12/08/async-fragments-rediscovering-progressive-html-rendering-with-marko/" rel="nofollow">here</a>.</li>
+			</ul>
+
+			<h2><a class="anchor" href="#"></a>Why you would use a <code>srcset</code> attribute in an image tag? Explain the process the browser uses when evaluating the content of this attribute.</h2>
+			<p>You would use the&nbsp;<code>srcset</code>&nbsp;attribute when you want to serve different images to users depending on their device display width - serve higher quality images to devices with retina display enhances the user experience while serving lower resolution images to low-end devices increase performance and decrease data wastage (because serving a larger image will not have any visible difference). For example:&nbsp;<code>&lt;img srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 2000w" src="..." alt=""&gt;</code>&nbsp;tells the browser to display the small, medium or large&nbsp;<code>.jpg</code>&nbsp;graphic depending on the client's resolution. The first value is the image name and the second is the width of the image in pixels. For a device width of 320px, the following calculations are made:</p>
+			<ul>
+				<li>500 / 320 = 1.5625</li>
+				<li>1000 / 320 = 3.125</li>
+				<li>2000 / 320 = 6.25</li>
+			</ul>
+			<p>If the client's resolution is 1x, 1.5625 is the closest, and&nbsp;<code>500w</code>&nbsp;corresponding to&nbsp;<code>small.jpg</code>&nbsp;will be selected by the browser.</p>
+			<p>If the resolution is retina (2x), the browser will use the closest resolution above the minimum. Meaning it will not choose the 500w (1.5625) because it is greater than 1 and the image might look bad. The browser would then choose the image with a resulting ratio closer to 2 which is 1000w (3.125).</p>
+			<p><code>srcset</code>s solve the problem whereby you want to serve smaller image files to narrow screen devices, as they don't need huge images like desktop displays do &mdash; and also optionally that you want to serve different resolution images to high density/low-density screens.</p>
 
 			<h2><a id="user-content-have-you-used-different-html-templating-languages-before" class="anchor" href="#have-you-used-different-html-templating-languages-before"></a>Have you used different HTML templating languages before?</h2>
-			<p>Yes. Jinja2 and Django template language in Python. Jade and EJS in JavaScript. Some more in other languages.</p>
+
+			<p>Javascript templating?</p>
+			
+			<hr>
+			
+			<p><strong>Reference: <a href="https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/html-questions.md" target="_blank">github/yangshun</a></strong></p>
 		</div>
 	</div>
 
