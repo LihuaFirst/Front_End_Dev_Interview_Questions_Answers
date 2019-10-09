@@ -20,3 +20,11 @@ ol li:last-child,
 ul li:last-child {
 	margin-bottom: 10px;
 }
+pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f6f8fa;
+    border-radius: 3px;
+}

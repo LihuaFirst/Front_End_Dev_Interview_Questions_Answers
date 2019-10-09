@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
+	<title>CSS Interview Questions</title>
+	<meta name="author" content="name">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+	<div class="container">
+		<h1>CSS Interview Questions</h1>
+		<hr>
+		<h3>What is CSS selector specificity and how does it work?</h3>
+		<p>The browser determines what styles to show on an element depending on the specificity of CSS rules. We assume that the browser has already determined the rules that match a particular element. Among the matching rules, the specificity, four comma-separate values,&nbsp;<code>a, b, c, d</code>&nbsp;are calculated for each rule based on the following:</p>
+		<ol>
+			<li><code>a</code>&nbsp;is whether inline styles are being used. If the property declaration is an inline style on the element,&nbsp;<code>a</code>&nbsp;is 1, else 0.</li>
+			<li><code>b</code>&nbsp;is the number of ID selectors.</li>
+			<li><code>c</code>&nbsp;is the number of classes, attributes and pseudo-classes selectors.</li>
+			<li><code>d</code>&nbsp;is the number of tags and pseudo-elements selectors.</li>
+		</ol>
+
+		<p>The resulting specificity is not a score, but a matrix of values that can be compared column by column. When comparing selectors to determine which has the highest specificity, look from left to right, and compare the highest value in each column. So a value in column&nbsp;<code>b</code>&nbsp;will override values in columns&nbsp;<code>c</code>&nbsp;and&nbsp;<code>d</code>, no matter what they might be. As such, specificity of&nbsp;<code>0,1,0,0</code>&nbsp;would be greater than one of&nbsp;<code>0,0,10,10</code>.</p>
+		<p>In the cases of equal specificity: the latest rule is the one that counts. If you have written the same rule into your stylesheet (regardless of internal or external) twice, then the lower rule in your style sheet is closer to the element to be styled, it is deemed to be more specific and therefore will be applied.</p>
+		<p>I would write CSS rules with low specificity so that they can be easily overridden if necessary. When writing CSS UI component library code, it is important that they have low specificities so that users of the library can override them without using too complicated CSS rules just for the sake of increasing specificity or resorting to&nbsp;<code>!important</code>.</p>
+
+		<p>In conclusion, <code>!important</code> &gt; inline style (e.g.,&nbsp;<code>style="font-weight: bold;"</code>)&nbsp; &gt; ID (e.g.,&nbsp;<code>#example</code>) &gt; Class (e.g.,&nbsp;<code>.example</code>), attributes selectors (e.g.,&nbsp;<code>[type="radio"]</code>) and pseudo-classes (e.g.,&nbsp;<code>:hover</code>) &gt; tags (e.g. <code>h1</code>) and pseudo elements (e.g. <code>::before</code>)</p>
+
+
+		<h3>What's the difference between "resetting" and "normalizing" CSS? Which would you choose, and why?</h3>
+		<ul>
+			<li><strong>Resetting</strong>&nbsp;- Resetting is meant to strip all default browser styling on elements. For e.g.&nbsp;<code>margin</code>s,&nbsp;<code>padding</code>s,&nbsp;<code>font-size</code>s of all elements are reset to be the same. You will have to redeclare styling for common typographic elements.</li>
+			<li><strong>Normalizing</strong>&nbsp;- Normalizing preserves useful default styles rather than "unstyling" everything. It also corrects bugs for common browser dependencies.</li>
+		</ul>
+		<p>I would choose resetting when I have a very customized or unconventional site design such that I need to do a lot of my own styling and do not need any default styling to be preserved.</p>
+
+
+		<h3>Describe&nbsp;<code>float</code>s and how they work.</h3>
+		<p>Float is a CSS positioning property. Floated elements remain a part of the flow of the page, and will affect the positioning of other elements (e.g. text will flow around floated elements), unlike&nbsp;<code>position: absolute</code>&nbsp;elements, which are removed from the flow of the page.</p>
+		<p>The CSS&nbsp;<code>clear</code>&nbsp;property can be used to be positioned below&nbsp;<code>left</code>/<code>right</code>/<code>both</code>&nbsp;floated elements.</p>
+		<p>If a parent element contains nothing but floated elements, its height will be collapsed to nothing. It can be fixed by clearing the float after the floated elements in the container but before the close of the container.</p>
+		<p>The&nbsp;<code>.clearfix</code>&nbsp;hack uses a clever CSS&nbsp;<a href="https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/css-questions.md#describe-pseudo-elements-and-discuss-what-they-are-used-for">pseudo selector</a>&nbsp;(<code>:after</code>) to clear floats. Rather than setting the overflow on the parent, you apply an additional class&nbsp;<code>clearfix</code>&nbsp;to it. Then apply this CSS:</p>
+		<div class="highlight highlight-source-css">
+			<pre><span class="pl-e">.clearfix</span><span class="pl-e">:after</span> {
+		  <span class="pl-c1"><span class="pl-c1">content</span></span>: <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span>;
+		  <span class="pl-c1"><span class="pl-c1">visibility</span></span>: <span class="pl-c1">hidden</span>;
+		  <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">block</span>;
+		  <span class="pl-c1"><span class="pl-c1">height</span></span>: <span class="pl-c1">0</span>;
+		  <span class="pl-c1"><span class="pl-c1">clear</span></span>: <span class="pl-c1">both</span>;
+		}</pre>
+		</div>
+		<p>Alternatively, give&nbsp;<code>overflow: auto</code>&nbsp;or&nbsp;<code>overflow: hidden</code>&nbsp;property to the parent element which will establish a new block formatting context inside the children and it will expand to contain its children.</p>
+
+
+		<h3>Describe&nbsp;<code>z-index</code>&nbsp;and how stacking context is formed.</h3>
+		<p>The&nbsp;<code>z-index</code>&nbsp;property in CSS controls the vertical stacking order of elements that overlap.&nbsp;<code>z-index</code>&nbsp;only affects elements that have a&nbsp;<code>position</code>&nbsp;value which is not&nbsp;<code>static</code>.</p>
+		<p>Without any&nbsp;<code>z-index</code>&nbsp;value, elements stack in the order that they appear in the DOM (the lowest one down at the same hierarchy level appears on top). Elements with non-static positioning (and their children) will always appear on top of elements with default static positioning, regardless of HTML hierarchy.</p>
+		<p>A stacking context is an element that contains a set of layers. Within a local stacking context, the&nbsp;<code>z-index</code>&nbsp;values of its children are set relative to that element rather than to the document root. Layers outside of that context &mdash; i.e. sibling elements of a local stacking context &mdash; can't sit between layers within it. If an element B sits on top of element A, a child element of element A, element C, can never be higher than element B even if element C has a higher&nbsp;<code>z-index</code>&nbsp;than element B.</p>
+		<p>Each stacking context is self-contained - after the element's contents are stacked, the whole element is considered in the stacking order of the parent stacking context. A handful of CSS properties trigger a new stacking context, such as&nbsp;<code>opacity</code>&nbsp;less than 1,&nbsp;<code>filter</code>&nbsp;that is not&nbsp;<code>none</code>, and&nbsp;<code>transform</code>&nbsp;that is not<code>none</code>.</p>
+		<p><em>Note: What exactly qualifies an element to create a stacking context is listed in this long set of&nbsp;<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context#The_stacking_context" rel="nofollow">rules</a>.
+		</em></p>
+
+
+		<h3>What are the various clearing techniques and which is appropriate for what context?</h3>
+		<ul>
+			<li>Empty&nbsp;<code>div</code>&nbsp;method -&nbsp;<code>&lt;div style="clear:both;"&gt;&lt;/div&gt;</code>.</li>
+			<li>Clearfix method - <code>.clearfix</code>&nbsp;class.
+				<pre><span class="pl-e">.clearfix</span><span class="pl-e">:after</span> {
+  <span class="pl-c1">content</span>: <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span>;
+  <span class="pl-c1">visibility</span>: <span class="pl-c1">hidden</span>;
+  <span class="pl-c1">display</span>: <span class="pl-c1">block</span>;
+  <span class="pl-c1">height</span>: <span class="pl-c1">0</span>;
+  <span class="pl-c1">clear</span>: <span class="pl-c1">both</span>;
+}</pre>
+			</li>
+			<li><code>overflow: auto</code>&nbsp;or&nbsp;<code>overflow: hidden</code>&nbsp;method - Parent will establish a new block formatting context and expand to contains its floated children.</li>
+		</ul>
+
+		<p>In large projects, I would write a utility&nbsp;<code>.clearfix</code>&nbsp;class and use them in places where I need it.&nbsp;<code>overflow: hidden</code>&nbsp;might clip children if the children is taller than the parent and is not very ideal.</p>
+
+
+		<h3>Explain CSS sprites, and how you would implement them on a page or site.</h3>
+		<p>CSS sprites combine multiple images into one single larger image. It is a commonly-used technique for icons (Gmail uses it). How to implement it:</p>
+		<ol>
+			<li>Use a sprite generator that packs multiple images into one and generate the appropriate CSS for it.</li>
+			<li>Each image would have a corresponding CSS class with&nbsp;<code>background-image</code>,&nbsp;<code>background-position</code>&nbsp;and&nbsp;<code>background-size</code>&nbsp;properties defined.</li>
+			<li>To use that image, add the corresponding class to your element.</li>
+		</ol>
+		<p><strong>Advantages:</strong></p>
+		<ul>
+			<li>Reduce the number of HTTP requests for multiple images (only one single request is required per spritesheet). But with HTTP2, loading multiple images is no longer much of an issue.</li>
+			<li>Advance downloading of assets that won't be downloaded until needed, such as images that only appear upon&nbsp;<code>:hover</code>&nbsp;pseudo-states. Blinking wouldn't be seen.</li>
+		</ul>
+
+		<h3>How would you approach fixing browser-specific styling issues?</h3>
+		<ul>
+			<li>After identifying the issue and the offending browser, use a separate style sheet that only loads when that specific browser is being used. This technique requires server-side rendering though.</li>
+			<li>Use libraries like Bootstrap that already handles these styling issues for you.</li>
+			<li>Use&nbsp;<code>autoprefixer</code>&nbsp;to automatically add vendor prefixes to your code.</li>
+			<li>Use Reset CSS or Normalize.css.</li>
+			<li>If you're using Postcss (or a similar transpiling library), there may be plugins which allow you to opt in for using modern CSS syntax (and even W3C proposals) that will transform those sections of your code into corresponding safe code that will work in the targets you've used.</li>
+		</ul>
+
+		<h3>How do you serve your pages for feature-constrained browsers? What techniques/processes do you use?</h3>
+		<ul>
+			<li>Graceful degradation - The practice of building an application for modern browsers while ensuring it remains functional in older browsers.</li>
+			<li>Progressive enhancement - The practice of building an application for a base level of user experience, but adding functional enhancements when a browser supports it.</li>
+			<li>Use&nbsp;<a href="https://caniuse.com/" rel="nofollow">caniuse.com</a>&nbsp;to check for feature support.</li>
+			<li>Autoprefixer for automatic vendor prefix insertion.</li>
+			<li>Feature detection using&nbsp;<a href="https://modernizr.com/" rel="nofollow">Modernizr</a>.</li>
+			<li>Use CSS Feature queries&nbsp;<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@supports" rel="nofollow">@support</a></li>
+		</ul>
+
+
+		<h3>What are the different ways to visually hide content (and make it available only for screen readers)?</h3>
+		<p>These techniques are related to accessibility (a11y).</p>
+		<ul>
+			<li><code>visibility: hidden</code>. However, the element is still in the flow of the page, and still takes up space.</li>
+			<li><code>width: 0; height: 0</code>. Make the element not take up any space on the screen at all, resulting in not showing it.</li>
+			<li><code>position: absolute; left: -99999px</code>. Position it outside of the screen.</li>
+			<li><code>text-indent: -9999px</code>. This only works on text within the&nbsp;<code>block</code>&nbsp;elements.</li>
+			<li>Metadata. For example by using Schema.org, RDF, and JSON-LD.</li>
+			<li>WAI-ARIA. A W3C technical specification that specifies how to increase the accessibility of web pages.</li>
+		</ul>
+		<p>Even if WAI-ARIA is the ideal solution, I would go with the&nbsp;<code>absolute</code>&nbsp;positioning approach, as it has the least caveats, works for most elements and it's an easy technique.</p>
+
+		<h3>Have you ever used a grid system, and if so, what do you prefer?</h3>
+		<p>I like the&nbsp;<code>float</code>-based grid system because it still has the most browser support among the alternative existing systems (flex, grid). It has been used in Bootstrap for years and has been proven to work.</p>
+
+		<h3>Have you used or implemented media queries or mobile-specific layouts/CSS?</h3>
+		<p>Yes. An example would be transforming a stacked pill navigation into a fixed-bottom tab navigation beyond a certain breakpoint.</p>
+
+		<h3>Are you familiar with styling SVG?</h3>
+		<p>Yes, there are several ways to color shapes (including specifying attributes on the object) using inline CSS, an embedded CSS section, or an external CSS file. Most SVG you'll find around the web use inline CSS, but there are advantages and disadvantages associated with each type.</p>
+		<p>Basic coloring can be done by setting two attributes on the node:&nbsp;<code>fill</code>&nbsp;and&nbsp;<code>stroke</code>.&nbsp;<code>fill</code>&nbsp;sets the color inside the object and&nbsp;<code>stroke</code>&nbsp;sets the color of the line drawn around the object. You can use the same CSS color naming schemes that you use in HTML, whether that's color names (that is&nbsp;<code>red</code>), RGB values (that is&nbsp;<code>rgb(255,0,0)</code>), Hex values, RGBA values, etc.</p>
+		<div class="highlight highlight-text-html-basic">
+			<pre>&lt;<span class="pl-ent">rect</span> <span class="pl-e">x</span>=<span class="pl-s"><span class="pl-pds">"</span>10<span class="pl-pds">"</span></span> <span class="pl-e">y</span>=<span class="pl-s"><span class="pl-pds">"</span>10<span class="pl-pds">"</span></span> <span class="pl-e">width</span>=<span class="pl-s"><span class="pl-pds">"</span>100<span class="pl-pds">"</span></span> <span class="pl-e">height</span>=<span class="pl-s"><span class="pl-pds">"</span>100<span class="pl-pds">"</span></span> <span class="pl-e">stroke</span>=<span class="pl-s"><span class="pl-pds">"</span>blue<span class="pl-pds">"</span></span>
+  <span class="pl-e">fill</span>=<span class="pl-s"><span class="pl-pds">"</span>purple<span class="pl-pds">"</span></span> <span class="pl-e">fill-opacity</span>=<span class="pl-s"><span class="pl-pds">"</span>0.5<span class="pl-pds">"</span></span> <span class="pl-e">stroke-opacity</span>=<span class="pl-s"><span class="pl-pds">"</span>0.8<span class="pl-pds">"</span></span>/&gt;</pre>
+		</div>
+		<p>The above&nbsp;<code>fill="purple"</code>&nbsp;is an example of a&nbsp;<em>presentational attribute</em>. Interestingly, and unlike inline styles like&nbsp;<code>style="fill: purple"</code>&nbsp;which also happens to be an attribute, presentational attributes can be&nbsp;<a href="https://css-tricks.com/presentation-attributes-vs-inline-styles/" rel="nofollow">overriden by CSS</a>&nbsp;styles defined in a stylesheet. So, if you did something like&nbsp;<code>svg { fill: blue; }</code>&nbsp;it would override the purple fill we've defined.</p>
+
+		<h3>Can you give an example of an @media property other than screen?</h3>
+		<p>Yes, there are four types of @media properties (including&nbsp;<em>screen</em>):</p>
+		<ul>
+			<li><code>all</code>&nbsp;- for all media type devices</li>
+			<li><code>print</code>&nbsp;- for printers</li>
+			<li><code>speech</code>&nbsp;- for screenreaders that "reads" the page out loud</li>
+			<li><code>screen</code>&nbsp;- for computer screens, tablets, smart-phones etc.</li>
+		</ul>
+		<p>Here is an example of&nbsp;<code>print</code>&nbsp;media type's usage:</p>
+		<div class="highlight highlight-source-css">
+			<pre><span class="pl-k">@media</span> <span class="pl-c1">print</span> {
+  <span class="pl-ent">body</span> {
+    <span class="pl-c1"><span class="pl-c1">color</span></span>: <span class="pl-c1">black</span>;
+  }
+}</pre>
+		</div>
+
+		<h3>What are some of the "gotchas" for writing efficient CSS?</h3>
+		<p>Firstly, understand that browsers match selectors from rightmost (key selector) to left. Browsers filter out elements in the DOM according to the key selector and traverse up its parent elements to determine matches. The shorter the length of the selector chain, the faster the browser can determine if that element matches the selector. Hence avoid key selectors that are tag and universal selectors. They match a large number of elements and browsers will have to do more work in determining if the parents do match.</p>
+		<p><a href="https://bem.info/" rel="nofollow">BEM (Block Element Modifier)</a>&nbsp;methodology recommends that everything has a single class, and, where you need hierarchy, that gets baked into the name of the class as well, this naturally makes the selector efficient and easy to override.</p>
+		<p>Be aware of which CSS properties&nbsp;<a href="https://csstriggers.com/" rel="nofollow">trigger</a>&nbsp;reflow, repaint, and compositing. Avoid writing styles that change the layout (trigger reflow) where possible.</p>
+
+
+		<h3>What are the advantages/disadvantages of using CSS preprocessors?</h3>
+		<p><strong>Advantages:</strong></p>
+		<ul>
+			<li>CSS is made more maintainable.</li>
+			<li>Easy to write nested selectors.</li>
+			<li>Variables for consistent theming. Can share theme files across different projects.</li>
+			<li>Mixins to generate repeated CSS.</li>
+			<li>Sass features like loops, lists, and maps can make configuration easier and less verbose.</li>
+			<li>Splitting your code into multiple files. CSS files can be split up too but doing so will require an HTTP request to download each CSS file.</li>
+		</ul>
+		<p><strong>Disadvantages:</strong></p>
+		<ul>
+			<li>Requires tools for preprocessing. Re-compilation time can be slow.</li>
+			<li>Not writing currently and potentially usable CSS. For example, by using something like&nbsp;<a href="https://github.com/postcss/postcss-loader">postcss-loader</a>&nbsp;with&nbsp;<a href="https://webpack.js.org/" rel="nofollow">webpack</a>, you can write potentially future-compatible CSS, allowing you to use things like CSS variables instead of Sass variables. Thus, you're learning new skills that could pay off if/when they become standardized.</li>
+		</ul>
+
+
+		<h3>Describe what you like and dislike about the CSS preprocessors you have used.</h3>
+		<p><strong>Likes:</strong></p>
+		<ul>
+			<li>Mostly the advantages mentioned above.</li>
+			<li>Less is written in JavaScript, which plays well with Node.</li>
+		</ul>
+		<p><strong>Dislikes:</strong></p>
+		<ul>
+			<li>I use Sass via&nbsp;<code>node-sass</code>, which is a binding for LibSass written in C++. I have to frequently recompile it when switching between node versions.</li>
+			<li>In Less, variable names are prefixed with&nbsp;<code>@</code>, which can be confused with native CSS keywords like&nbsp;<code>@media</code>,&nbsp;<code>@import</code>&nbsp;and&nbsp;<code>@font-face</code>&nbsp;rule.</li>
+		</ul>
+
+		<h3>How would you implement a web design comp that uses non-standard fonts?</h3>
+		<p>Use&nbsp;<code>@font-face</code>&nbsp;and define&nbsp;<code>font-family</code>&nbsp;for different&nbsp;<code>font-weight</code>s.</p>
+
+		<h3>Explain how a browser determines what elements match a CSS selector.</h3>
+		<p>This part is related to the above about&nbsp;<a href="https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/css-questions.md#what-are-some-of-the-gotchas-for-writing-efficient-css">writing efficient CSS</a>. Browsers match selectors from rightmost (key selector) to left. Browsers filter out elements in the DOM according to the key selector and traverse up its parent elements to determine matches. The shorter the length of the selector chain, the faster the browser can determine if that element matches the selector.</p>
+		<p>For example with this selector&nbsp;<code>p span</code>, browsers firstly find all the&nbsp;<code>&lt;span&gt;</code>&nbsp;elements and traverse up its parent all the way up to the root to find the&nbsp;<code>&lt;p&gt;</code>&nbsp;element. For a particular&nbsp;<code>&lt;span&gt;</code>, as soon as it finds a&nbsp;<code>&lt;p&gt;</code>, it knows that the&nbsp;<code>&lt;span&gt;</code>&nbsp;matches and can stop its matching.</p>
+
+		<h3>Describe pseudo-elements and discuss what they are used for.</h3>
+		<p>A CSS pseudo-element is a keyword added to a selector that lets you style a specific part of the selected element(s). They can be used for decoration (<code>:first-line</code>,&nbsp;<code>:first-letter</code>) or adding elements to the markup (combined with&nbsp;<code>content: ...</code>) without having to modify the markup (<code>:before</code>,&nbsp;<code>:after</code>).</p>
+		<ul>
+			<li><code>:first-line</code>&nbsp;and&nbsp;<code>:first-letter</code>&nbsp;can be used to decorate text.</li>
+			<li>Used in the&nbsp;<code>.clearfix</code>&nbsp;hack as shown above to add a zero-space element with&nbsp;<code>clear: both</code>.</li>
+			<li>Triangular arrows in tooltips use&nbsp;<code>:before</code>&nbsp;and&nbsp;<code>:after</code>. Encourages separation of concerns because the triangle is considered part of styling and not really the DOM. It's not really possible to draw a triangle with just CSS styles without using an additional HTML element.</li>
+		</ul>
+
+		<h3>Explain your understanding of the box model and how you would tell the browser in CSS to render your layout in different box models.</h3>
+		<p>The CSS box model describes the rectangular boxes that are generated for elements in the document tree and laid out according to the visual formatting model. Each box has a content area (e.g. text, an image, etc.) and optional surrounding&nbsp;<code>padding</code>,&nbsp;<code>border</code>, and&nbsp;<code>margin</code>&nbsp;areas.</p>
+		<p>The CSS box model is responsible for calculating:</p>
+		<ul>
+			<li>How much space a block element takes up.</li>
+			<li>Whether or not borders and/or margins overlap, or collapse.</li>
+			<li>A box's dimensions.</li>
+		</ul>
+		<p>The box model has the following rules:</p>
+		<ul>
+			<li>The dimensions of a block element are calculated by&nbsp;<code>width</code>,&nbsp;<code>height</code>,&nbsp;<code>padding</code>,&nbsp;<code>border</code>s, and&nbsp;<code>margin</code>s.</li>
+			<li>If no&nbsp;<code>height</code>&nbsp;is specified, a block element will be as high as the content it contains, plus&nbsp;<code>padding</code>&nbsp;(unless there are floats, for which see below).</li>
+			<li>If no&nbsp;<code>width</code>&nbsp;is specified, a non-floated block element will expand to fit the width of its parent minus&nbsp;<code>padding</code>.</li>
+			<li>The&nbsp;<code>height</code>&nbsp;of an element is calculated by the content's&nbsp;<code>height</code>.</li>
+			<li>The&nbsp;<code>width</code>&nbsp;of an element is calculated by the content's&nbsp;<code>width</code>.</li>
+			<li>By default,&nbsp;<code>padding</code>s and&nbsp;<code>border</code>s are not part of the&nbsp;<code>width</code>&nbsp;and&nbsp;<code>height</code>&nbsp;of an element.</li>
+		</ul>
+
+		<h3>What does&nbsp;<code>* { box-sizing: border-box; }</code>&nbsp;do? What are its advantages?</h3>
+		<ul>
+			<li>By default, elements have&nbsp;<code>box-sizing: content-box</code>&nbsp;applied, and only the content size is being accounted for.</li>
+			<li><code>box-sizing: border-box</code>&nbsp;changes how the&nbsp;<code>width</code>&nbsp;and&nbsp;<code>height</code>&nbsp;of elements are being calculated,&nbsp;<code>border</code>&nbsp;and&nbsp;<code>padding</code>&nbsp;are also being included in the calculation.</li>
+			<li>The&nbsp;<code>height</code>&nbsp;of an element is now calculated by the content's&nbsp;<code>height</code>&nbsp;+ vertical&nbsp;<code>padding</code>&nbsp;+ vertical&nbsp;<code>border</code>&nbsp;width.</li>
+			<li>The&nbsp;<code>width</code>&nbsp;of an element is now calculated by the content's&nbsp;<code>width</code>&nbsp;+ horizontal&nbsp;<code>padding</code>&nbsp;+ horizontal&nbsp;<code>border</code>&nbsp;width.</li>
+			<li>Taking into account&nbsp;<code>padding</code>s and&nbsp;<code>border</code>s as part of our box model resonates better with how designers actually imagine content in grids.</li>
+		</ul>
+
+		<h3>What is the CSS&nbsp;<code>display</code>&nbsp;property and can you give a few examples of its use?</h3>
+
+		<p>w3schools <a href="https://www.w3schools.com/cssref/pr_class_display.asp" target="_blank">CSS display Property</a></p>
+		<table class="table table-bordered table-hover">
+			<tbody>
+				<tr>
+					<th>Value</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<td>inline</td>
+					<td>Displays an element as an inline element (like &lt;span&gt;). Any height and width properties will have no effect</td>
+				</tr>
+				<tr>
+					<td>block</td>
+					<td>Displays an element as a block element (like &lt;p&gt;). It starts on a new line, and takes up the whole width</td>
+				</tr>
+				<tr>
+					<td>contents</td>
+					<td>Makes the container disappear, making the child elements children of the element the next level up in the DOM</td>
+				</tr>
+				<tr>
+					<td>flex</td>
+					<td>Displays an element as a block-level flex container</td>
+				</tr>
+				<tr>
+					<td>grid</td>
+					<td>Displays an element as a block-level grid container</td>
+				</tr>
+				<tr>
+					<td>inline-block</td>
+					<td>Displays an element as an inline-level block container. The element itself is formatted as an inline element, but you can apply height and width values</td>
+				</tr>
+				<tr>
+					<td>inline-flex</td>
+					<td>Displays an element as an inline-level flex container</td>
+				</tr>
+				<tr>
+					<td>inline-grid</td>
+					<td>Displays an element as an inline-level grid container</td>
+				</tr>
+				<tr>
+					<td>inline-table</td>
+					<td>The element is displayed as an inline-level table</td>
+				</tr>
+				<tr>
+					<td>list-item</td>
+					<td>Let the element behave like a &lt;li&gt; element</td>
+				</tr>
+				<tr>
+					<td>run-in</td>
+					<td>Displays an element as either block or inline, depending on context</td>
+				</tr>
+				<tr>
+					<td>table</td>
+					<td>Let the element behave like a &lt;table&gt; element</td>
+				</tr>
+				<tr>
+					<td>table-caption</td>
+					<td>Let the element behave like a &lt;caption&gt; element</td>
+				</tr>
+				<tr>
+					<td>table-column-group</td>
+					<td>Let the element behave like a &lt;colgroup&gt; element</td>
+				</tr>
+				<tr>
+					<td>table-header-group</td>
+					<td>Let the element behave like a &lt;thead&gt; element</td>
+				</tr>
+				<tr>
+					<td>table-footer-group</td>
+					<td>Let the element behave like a &lt;tfoot&gt; element</td>
+				</tr>
+				<tr>
+					<td>table-row-group</td>
+					<td>Let the element behave like a &lt;tbody&gt; element</td>
+				</tr>
+				<tr>
+					<td>table-cell</td>
+					<td>Let the element behave like a &lt;td&gt; element</td>
+				</tr>
+				<tr>
+					<td>table-column</td>
+					<td>Let the element behave like a &lt;col&gt; element</td>
+				</tr>
+				<tr>
+					<td>table-row</td>
+					<td>Let the element behave like a &lt;tr&gt; element</td>
+				</tr>
+				<tr>
+					<td>none</td>
+					<td>The element is completely removed</td>
+				</tr>
+				<tr>
+					<td>initial</td>
+					<td>Sets this property to its default value.&nbsp;<a href="https://www.w3schools.com/cssref/css_initial.asp">Read about&nbsp;<em>initial</em></a></td>
+				</tr>
+				<tr>
+					<td>inherit</td>
+					<td>Inherits this property from its parent element.&nbsp;<a href="https://www.w3schools.com/cssref/css_inherit.asp">Read about&nbsp;<em>inherit</em></a></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3>What's the difference between&nbsp;<code>inline</code>&nbsp;and&nbsp;<code>inline-block</code>?</h3>
+		<p>I shall throw in a comparison with&nbsp;<code>block</code>&nbsp;for good measure.</p>
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th><code>block</code></th>
+					<th><code>inline-block</code></th>
+					<th><code>inline</code></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Size</td>
+					<td>Fills up the width of its parent container.</td>
+					<td>Depends on content.</td>
+					<td>Depends on content.</td>
+				</tr>
+				<tr>
+					<td>Positioning</td>
+					<td>Start on a new line and tolerates no HTML elements next to it (except when you add&nbsp;<code>float</code>)</td>
+					<td>Flows along with other content and allows other elements beside it.</td>
+					<td>Flows along with other content and allows other elements beside it.</td>
+				</tr>
+				<tr>
+					<td>Can specify&nbsp;<code>width</code>&nbsp;and&nbsp;<code>height</code></td>
+					<td>Yes</td>
+					<td>Yes</td>
+					<td>No. Will ignore if being set.</td>
+				</tr>
+				<tr>
+					<td>Can be aligned with&nbsp;<code>vertical-align</code></td>
+					<td>No</td>
+					<td>Yes</td>
+					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>Margins and paddings</td>
+					<td>All sides respected.</td>
+					<td>All sides respected.</td>
+					<td>Only horizontal sides respected. Vertical sides, if specified, do not affect layout. Vertical space it takes up depends on&nbsp;<code>line-height</code>, even though the&nbsp;<code>border</code>&nbsp;and&nbsp;<code>padding</code>&nbsp;appear visually around the content.</td>
+				</tr>
+				<tr>
+					<td>Float</td>
+					<td>-</td>
+					<td>-</td>
+					<td>Becomes like a&nbsp;<code>block</code>&nbsp;element where you can set vertical margins and paddings.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3>What's the difference between a&nbsp;<code>relative</code>,&nbsp;<code>fixed</code>,&nbsp;<code>absolute</code>&nbsp;and&nbsp;<code>static</code>ally positioned element?</h3>
+		<p>A positioned element is an element whose computed&nbsp;<code>position</code>&nbsp;property is either&nbsp;<code>relative</code>,&nbsp;<code>absolute</code>,&nbsp;<code>fixed</code>&nbsp;or&nbsp;<code>sticky</code>.</p>
+		<ul>
+			<li><code>static</code>&nbsp;- The default position; the element will flow into the page as it normally would. The&nbsp;<code>top</code>,&nbsp;<code>right</code>,&nbsp;<code>bottom</code>,&nbsp;<code>left</code>&nbsp;and&nbsp;<code>z-index</code>&nbsp;properties do not apply.</li>
+			<li><code>relative</code>&nbsp;- The element's position is adjusted relative to itself, without changing layout (and thus leaving a gap for the element where it would have been had it not been positioned).</li>
+			<li><code>absolute</code>&nbsp;- The element is removed from the flow of the page and positioned at a specified position relative to its closest positioned ancestor if any, or otherwise relative to the initial containing block. Absolutely positioned boxes can have margins, and they do not collapse with any other margins. These elements do not affect the position of other elements.</li>
+			<li><code>fixed</code>&nbsp;- The element is removed from the flow of the page and positioned at a specified position relative to the viewport and doesn't move when scrolled.</li>
+			<li><code>sticky</code>&nbsp;- Sticky positioning is a hybrid of relative and fixed positioning. The element is treated as&nbsp;<code>relative</code>&nbsp;positioned until it crosses a specified threshold, at which point it is treated as&nbsp;<code>fixed</code>&nbsp;positioned.</li>
+		</ul>
+
+		<h3>What existing CSS frameworks have you used locally, or in production? How would you change/improve them?</h3>
+		<ul>
+			<li><strong>Bootstrap</strong>&nbsp;- Slow release cycle. Bootstrap 4 has been in alpha for almost 2 years. Add a spinner button component, as it is widely used.</li>
+			<li><strong>Semantic UI</strong>&nbsp;- Source code structure makes theme customization extremely hard to understand. Its unconventional theming system is a pain to customize. Hardcoded config path within the vendor library. Not well-designed for overriding variables unlike in Bootstrap.</li>
+			<li><strong>Bulma</strong>&nbsp;- A lot of non-semantic and superfluous classes and markup required. Not backward compatible. Upgrading versions breaks the app in subtle manners.</li>
+		</ul>
+
+		<hr>
+
+		<p><strong>Reference: <a href="https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/css-questions.md" target="_blank">github/yangshun</a></strong></p>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

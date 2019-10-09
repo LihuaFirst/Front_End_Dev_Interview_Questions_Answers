@@ -229,9 +229,87 @@
 			<p>Pug.js is a HTML templating engine, which means you can write much simpler Pug code, which Pug compiler will compile into HTML code, that browser can understand. </p>
 			<p>Pug has powerful features like conditions, loops, includes, mixins using which we can render HTML code based on user input or reference data. Pug also support JavaScript natively, hence using JavaScript expressions, we can format HTML code.</p>
 			<p>An application of that would be Email Templates to send email customized to particular user. We can make an email template using Pug with variables that can be changed based on user to whom we are sending that email. Before sending email,we can compile Pug to HTML code with user data to fill the gaps where that dynamic information should go.</p>
-			
+
+
+			<h3>Have you played around with the new CSS Flexbox or Grid specs?</h3>
+			<p>Yes. Flexbox is mainly meant for 1-dimensional layouts while Grid is meant for 2-dimensional layouts.</p>
+			<p>Flexbox solves many common problems in CSS, such as vertical centering of elements within a container, sticky footer, etc. Bootstrap and Bulma are based on Flexbox, and it is probably the recommended way to create layouts these days. Have tried Flexbox before but ran into some browser incompatibility issues (Safari) in using&nbsp;<code>flex-grow</code>, and I had to rewrite my code using&nbsp;<code>inline-blocks</code>&nbsp;and math to calculate the widths in percentages, it wasn't a nice experience.</p>
+			<p>Grid is by far the most intuitive approach for creating grid-based layouts (it better be!) but browser support is not wide at the moment.</p>
+
+			<h3>&nbsp;</h3>
+			<h3>Can you explain the difference between coding a website to be responsive versus using a mobile-first strategy?</h3>
+			<p>Note that these two 2 approaches are not exclusive.</p>
+			<p>Making a website responsive means the some elements will respond by adapting its size or other functionality according to the device's screen size, typically the viewport width, through CSS media queries, for example, making the font size smaller on smaller devices.</p>
+			<div class="highlight highlight-source-css">
+				<pre><span class="pl-k">@media</span> (<span class="pl-c1">min-width</span>: <span class="pl-c1">601<span class="pl-k">px</span></span>) {
+  <span class="pl-e">.my-class</span> {
+    <span class="pl-c1"><span class="pl-c1">font-size</span></span>: <span class="pl-c1">24<span class="pl-k">px</span></span>;
+  }
+}
+<span class="pl-k">@media</span> (<span class="pl-c1">max-width</span>: <span class="pl-c1">600<span class="pl-k">px</span></span>) {
+  <span class="pl-e">.my-class</span> {
+    <span class="pl-c1"><span class="pl-c1">font-size</span></span>: <span class="pl-c1">12<span class="pl-k">px</span></span>;
+  }
+}</pre>
+			</div>
+			<p>A mobile-first strategy is also responsive, however it agrees we should default and define all the styles for mobile devices, and only add specific responsive rules to other devices later. Following the previous example:</p>
+			<div class="highlight highlight-source-css">
+				<pre><span class="pl-e">.my-class</span> {
+  <span class="pl-c1"><span class="pl-c1">font-size</span></span>: <span class="pl-c1">12<span class="pl-k">px</span></span>;
+}
+
+<span class="pl-k">@media</span> (<span class="pl-c1">min-width</span>: <span class="pl-c1">600<span class="pl-k">px</span></span>) {
+  <span class="pl-e">.my-class</span> {
+    <span class="pl-c1"><span class="pl-c1">font-size</span></span>: <span class="pl-c1">24<span class="pl-k">px</span></span>;
+  }
+}</pre>
+			</div>
+			<p>A mobile-first strategy has 2 main advantages:</p>
+			<ul>
+				<li>It's more performant on mobile devices, since all the rules applied for them don't have to be validated against any media queries.</li>
+				<li>It forces to write cleaner code in respect to responsive CSS rules.</li>
+			</ul>
+
+
+			<h3>&nbsp;</h3>
+			<h3>How is responsive design different from adaptive design?</h3>
+			<p>Both responsive and adaptive design attempt to optimize the user experience across different devices, adjusting for different viewport sizes, resolutions, usage contexts, control mechanisms, and so on.</p>
+			<p>Responsive design works on the principle of flexibility - a single fluid website that can look good on any device. Responsive websites use media queries, flexible grids, and responsive images to create a user experience that flexes and changes based on a multitude of factors. Like a single ball growing or shrinking to fit through several different hoops.</p>
+			<p>Adaptive design is more like the modern definition of progressive enhancement. Instead of one flexible design, adaptive design detects the device and other features and then provides the appropriate feature and layout based on a predefined set of viewport sizes and other characteristics. The site detects the type of device used and delivers the pre-set layout for that device. Instead of a single ball going through several different-sized hoops, you'd have several different balls to use depending on the hoop size.</p>
+			<p>Both have these methods have some issues that need to be weighed:</p>
+			<ul>
+				<li>Responsive design can be quite challenging, as you're essentially using a single albeit responsive layout to fit all situations. How to set the media query breakpoints is one such challenge. Do you use standardized breakpoint values? Or, do you use breakpoints that make sense to your particular layout? What if that layout changes?</li>
+				<li>Adaptive design generally requires user agent sniffing, or DPI detection, etc., all of which can prove unreliable.</li>
+			</ul>
+
+			<h3>Have you ever worked with retina graphics? If so, when and what techniques did you use?</h3>
+			<p><em>Retina</em>&nbsp;is just a marketing term to refer to high resolution screens with a pixel ratio bigger than 1. The key thing to know is that using a pixel ratio means these displays are emulating a lower resolution screen in order to show elements with the same size. Nowadays we consider all mobile devices&nbsp;<em>retina</em>&nbsp;defacto displays.</p>
+			<p>Browsers by default render DOM elements according to the device resolution, except for images.</p>
+			<p>In order to have crisp, good-looking graphics that make the best of retina displays we need to use high resolution images whenever possible. However using always the highest resolution images will have an impact on performance as more bytes will need to be sent over the wire.</p>
+			<p>To overcome this problem, we can use responsive images, as specified in HTML5. It requires making available different resolution files of the same image to the browser and let it decide which image is best, using the html attribute&nbsp;<code>srcset</code>&nbsp;and optionally&nbsp;<code>sizes</code>, for instance:</p>
+			<div class="highlight highlight-text-html-basic">
+				<pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">responsive-background-image</span>&gt;
+  &lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/images/test-1600.jpg<span class="pl-pds">"</span></span>
+    <span class="pl-e">sizes</span>=<span class="pl-s"><span class="pl-pds">"</span></span>
+<span class="pl-s">      (min-width: 768px) 50vw,</span>
+<span class="pl-s">      (min-width: 1024px) 66vw,</span>
+<span class="pl-s">      100vw<span class="pl-pds">"</span></span>
+    <span class="pl-e">srcset</span>=<span class="pl-s"><span class="pl-pds">"</span></span>
+<span class="pl-s">      /images/test-400.jpg 400w,</span>
+<span class="pl-s">      /images/test-800.jpg 800w,</span>
+<span class="pl-s">      /images/test-1200.jpg 1200w<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre>
+			</div>
+			<p>It is important to note that browsers which don't support HTML5's&nbsp;<code>srcset</code>&nbsp;(i.e. IE11) will ignore it and use&nbsp;<code>src</code>&nbsp;instead. If we really need to support IE11 and we want to provide this feature for performance reasons, we can use a JavaScript polyfill, e.g. <a href="http://scottjehl.github.io/picturefill/" target="_blank">Picturefill</a>.</p>
+			<p>For icons, I would also opt to use SVGs and icon fonts where possible, as they render very crisply regardless of resolution.</p>
+
+			<h3>Is there any reason you'd want to use&nbsp;<code>translate()</code>&nbsp;instead of&nbsp;<code>absolute</code>&nbsp;positioning, or vice-versa? And why?</h3>
+			<p><code>translate()</code>&nbsp;is a value of CSS&nbsp;<code>transform</code>. Changing&nbsp;<code>transform</code>&nbsp;or&nbsp;<code>opacity</code>&nbsp;does not trigger browser reflow or repaint but does trigger compositions; whereas changing the absolute positioning triggers&nbsp;<code>reflow</code>.&nbsp;<code>transform</code>&nbsp;causes the browser to create a GPU layer for the element but changing absolute positioning properties uses the CPU. Hence&nbsp;<code>translate()</code>&nbsp;is more efficient and will result in shorter paint times for smoother animations.</p>
+			<p>When using&nbsp;<code>translate()</code>, the element still occupies its original space (sort of like&nbsp;<code>position: relative</code>), unlike in changing the absolute positioning.</p>
+
+
 			<hr>
-			
+
 			<p><strong>Reference: <a href="https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/html-questions.md" target="_blank">github/yangshun</a></strong></p>
 		</div>
 	</div>
