@@ -19,6 +19,28 @@
 		<div class="">
 			<h1>Javascript Interview Questions</h1>
 			<hr>
+
+			<h3>Explain event delegation</h3>
+			<p>Event delegation is a technique involving adding event listeners to a parent element instead of adding them to the descendant elements. The listener will fire whenever the event is triggered on the descendant elements due to event bubbling up the DOM. The benefits of this technique are:</p>
+			<ul>
+				<li>Memory footprint goes down because only one single handler is needed on the parent element, rather than having to attach event handlers on each descendant.</li>
+				<li>There is no need to unbind the handler from elements that are removed and to bind the event for new elements.</li>
+			</ul>
+			<p>Caution:</p>
+			<ul>
+				<li>Not all events bubble. The&nbsp;<code class="  language-undefined">blur</code>,&nbsp;<code class="  language-undefined">focus</code>,&nbsp;<code class="  language-undefined">load</code>&nbsp;and&nbsp;<code class="  language-undefined">unload</code>&nbsp;events don&rsquo;t bubble like other events. The&nbsp;<code class="  language-undefined">blur</code>&nbsp;and&nbsp;<code class="  language-undefined">focus</code>&nbsp;events can actually be accessed using the capturing phase (in browsers other than IE) instead of the bubbling phase but that&rsquo;s a story for another day.</li>
+				<li>You need caution when managing some mouse events. If your code is handling the&nbsp;<code class="  language-undefined">mousemove</code>&nbsp;event you are in serious risk of creating a performance bottleneck because the&nbsp;<code class="  language-undefined">mousemove</code>&nbsp;event is triggered so often.&nbsp;</li>
+			</ul>
+			<h6>References</h6>
+			<ul>
+				<li><a href="https://davidwalsh.name/event-delegate" rel="nofollow">https://davidwalsh.name/event-delegate</a></li>
+				<li><a href="https://stackoverflow.com/questions/1687296/what-is-dom-event-delegation" rel="nofollow">https://stackoverflow.com/questions/1687296/what-is-dom-event-delegation</a></li>
+			</ul>
+
+
+
+
+
 		</div>
 	</div>
 
