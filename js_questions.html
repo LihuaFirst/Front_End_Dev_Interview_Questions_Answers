@@ -37,6 +37,24 @@
 				<li><a href="https://stackoverflow.com/questions/1687296/what-is-dom-event-delegation" rel="nofollow">https://stackoverflow.com/questions/1687296/what-is-dom-event-delegation</a></li>
 			</ul>
 
+			<h3>Explain how&nbsp;<code>this</code>&nbsp;works in JavaScript</h3>
+			<p>There's no simple explanation for&nbsp;<code>this</code>; it is one of the most confusing concepts in JavaScript. A hand-wavey explanation is that the value of&nbsp;<code>this</code>&nbsp;depends on how the function is called. I have read many explanations on&nbsp;<code>this</code>&nbsp;online, and I found&nbsp;<a href="https://medium.com/@arnav_aggarwal" rel="nofollow">Arnav Aggrawal</a>'s explanation to be the clearest. The following rules are applied:</p>
+			<ol>
+				<li>If the&nbsp;<code>new</code>&nbsp;keyword is used when calling the function,&nbsp;<code>this</code>&nbsp;inside the function is a brand new object.</li>
+				<li>If&nbsp;<code>apply</code>,&nbsp;<code>call</code>, or&nbsp;<code>bind</code>&nbsp;are used to call/create a function,&nbsp;<code>this</code>&nbsp;inside the function is the object that is passed in as the argument.</li>
+				<li>If a function is called as a method, such as&nbsp;<code>obj.method()</code> &mdash; <code>this</code>&nbsp;is the object that the function is a property of.</li>
+				<li>If a function is invoked as a free function invocation, meaning it was invoked without any of the conditions present above,&nbsp;<code>this</code>&nbsp;is the global object. In a browser, it is the&nbsp;<code>window</code>&nbsp;object. If in strict mode (<code>'use strict'</code>),&nbsp;<code>this</code>&nbsp;will be&nbsp;<code>undefined</code>&nbsp;instead of the global object.</li>
+				<li>If multiple of the above rules apply, the rule that is higher wins and will set the&nbsp;<code>this</code>&nbsp;value.</li>
+				<li>If the function is an ES2015 arrow function, it ignores all the rules above and receives the&nbsp;<code>this</code>&nbsp;value of its surrounding scope at the time it is created.</li>
+			</ol>
+			<p>For an in-depth explanation, do check out his&nbsp;<a href="https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3" rel="nofollow">article on Medium</a>.</p>
+			<h4><a id="user-content-can-you-give-an-example-of-one-of-the-ways-that-working-with-this-has-changed-in-es6" class="anchor" href="https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md#can-you-give-an-example-of-one-of-the-ways-that-working-with-this-has-changed-in-es6"></a>Can you give an example of one of the ways that working with this has changed in ES6?</h4>
+			<p>ES6 allows you to use&nbsp;<a href="http://2ality.com/2017/12/alternate-this.html#arrow-functions" rel="nofollow">arrow functions</a>&nbsp;which uses the&nbsp;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#No_separate_this" rel="nofollow">enclosing lexical scope</a>. This is usually convenient, but does prevent the caller from controlling context via&nbsp;<code>.call</code>&nbsp;or&nbsp;<code>.apply</code>&mdash;the consequences being that a library such as&nbsp;<code>jQuery</code>&nbsp;will not properly bind&nbsp;<code>this</code>&nbsp;in your event handler functions. Thus, it's important to keep this in mind when refactoring large legacy applications.</p>
+			<h6><a id="user-content-references-1" class="anchor" href="https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md#references-1"></a>References</h6>
+			<ul>
+				<li><a href="https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3" rel="nofollow">https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3</a></li>
+				<li><a href="https://stackoverflow.com/a/3127440/1751946" rel="nofollow">https://stackoverflow.com/a/3127440/1751946</a></li>
+			</ul>
 
 
 
