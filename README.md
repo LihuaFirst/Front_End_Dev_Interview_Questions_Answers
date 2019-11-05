@@ -2,3 +2,5 @@
 
 Credit to Yangshun Tay
 https://github.com/yangshun/front-end-interview-handbook
+
+For personal use only
